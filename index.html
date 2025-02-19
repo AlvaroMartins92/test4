@@ -7,6 +7,12 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Azo+Sans&display=swap');
 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Azo Sans', sans-serif;
             font-size: 14px;
@@ -17,15 +23,21 @@
             margin: 0;
             background: url('imagens/fundo.jpg') no-repeat center center/cover;
             text-align: center;
+            overflow: hidden; /* Evita rolagem desnecessária na tela inicial */
         }
 
         .container {
-            background: rgba(255, 255, 255, 0.85); /* Fundo transparente */
+            background: transparent;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 80%;
+            width: 90%;
             max-width: 400px;
+            max-height: 90vh;
+            overflow-y: auto; /* Permite rolagem dentro do container */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .question {
@@ -36,6 +48,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            width: 100%;
         }
 
         .option {
@@ -48,6 +61,7 @@
             border-radius: 5px;
             width: 100%;
             justify-content: start;
+            text-align: left;
         }
 
         .option:hover {
@@ -69,6 +83,21 @@
             color: white;
             border-radius: 5px;
             cursor: pointer;
+        }
+
+        /* Adiciona rolagem na página inteira quando necessário */
+        @media (max-width: 600px) {
+            body {
+                height: auto;
+                overflow-y: auto;
+                display: block;
+            }
+
+            .container {
+                max-height: none;
+                height: auto;
+                margin: 20px auto;
+            }
         }
     </style>
 </head>
@@ -132,6 +161,9 @@
                 content.innerHTML = '<h2>Obrigado por participar!</h2>';
             }
             step++;
+
+            // Força rolagem para o topo sempre que mudar de pergunta
+            content.scrollTop = 0;
         }
     </script>
 </body>
